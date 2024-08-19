@@ -1,11 +1,16 @@
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import { Container, SortPopup, Title, TopBar } from "@/components/shared";
+import { Categories } from "@/components/shared/";
 
 export default function Home() {
   return (
-    <h1>
-      Home
-      <Button variant="outline">Корзина</Button>
-    </h1>
+    <>
+      <Container className="mt-10">
+        <Title text="Всі піцци" size="lg" className="font-extrabold" />
+
+        {/* <Categories />
+        <SortPopup /> */}
+      </Container>
+      <TopBar />
+    </>
   );
 }
