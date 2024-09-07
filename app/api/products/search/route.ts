@@ -23,7 +23,9 @@ export async function GET(req: NextRequest) {
 
   const filteredPoducts = query
     ? products
-        .filter((product) => product.name.toLocaleLowerCase().includes(query))
+        .filter((product) =>
+          product.name.toLocaleLowerCase().includes(query.toLocaleLowerCase())
+        )
         .slice(0, 5)
     : products.slice(0, 5);
 

@@ -2,7 +2,8 @@
 
 import React from "react";
 import { FilterChecboxProps, FilterCheckbox } from "./filter-checkbox";
-import { Input } from "../ui";
+import { Input, Skeleton } from "../ui";
+import { ingredients } from "@/prisma/constants";
 // import { it } from "node:test";
 
 type Item = FilterChecboxProps;
@@ -14,6 +15,7 @@ interface Props {
   defaultItems: Item[];
   limit?: number;
   searchInputPlaceholder?: string;
+  // loading: boolean;
   onChange?: (values: string[]) => void;
   defaultValue?: string[];
 }
@@ -25,6 +27,7 @@ export const CheckboxFilterGroup: React.FC<Props> = ({
   defaultItems,
   limit = 5,
   searchInputPlaceholder = "Пошук",
+  // loading,
   onChange,
   defaultValue,
 }) => {
@@ -40,6 +43,20 @@ export const CheckboxFilterGroup: React.FC<Props> = ({
         item.text.toLowerCase().includes(searchValue.toLowerCase())
       )
     : defaultItems.slice(0, limit);
+
+  if (list.length === 0) {
+    return (
+      <div className={className}>
+        <p className="font-bold mb-3">{title}</p>
+        {...Array(limit)
+          .fill(0)
+          .map((_, index) => (
+            <Skeleton key={index} className="h-6 mb-4 rounded-[8px]" />
+          ))}
+        <Skeleton className="h-6 w-28 mb-4 rounded-[8px]" />
+      </div>
+    );
+  }
 
   return (
     <div className={className}>
