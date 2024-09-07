@@ -1,13 +1,26 @@
+"use client";
 import React from "react";
 import { Title } from "./title";
 import { CheckboxFilterGroup, FilterCheckbox, RangeSlider } from "./index";
 import { Input } from "../ui";
+import { useFilterIngridients } from "@/hooks/useFilterIngridients";
 
 interface Props {
   className?: string;
 }
 
 export const Filter: React.FC<Props> = ({ className }) => {
+  const {
+    ingridients,
+    // loading
+  } = useFilterIngridients();
+
+  // Айтеми для чекбоксу
+  const items = ingridients.map((ingridient) => ({
+    text: ingridient.name,
+    value: ingridient.id.toString(),
+  }));
+
   return (
     <div className={className}>
       <Title text="Фільтрація" size="sm" className="mb-5 font-bold" />
@@ -38,29 +51,10 @@ export const Filter: React.FC<Props> = ({ className }) => {
       <CheckboxFilterGroup
         title="Інгредієнти"
         className="mt-5"
-        limit={6}
-        defaultItems={[
-          { text: "Сир", value: "1" },
-          { text: "Сметана", value: "2" },
-          { text: "Сир", value: "3" },
-          { text: "Сметана", value: "4" },
-          { text: "Сир", value: "5" },
-          { text: "Сметана", value: "6" },
-        ]}
-        items={[
-          { text: "Сир", value: "1" },
-          { text: "Сметана", value: "2" },
-          { text: "Сир", value: "3" },
-          { text: "Сметана", value: "4" },
-          { text: "Сир", value: "5" },
-          { text: "Сметана", value: "6" },
-          { text: "Сир", value: "1" },
-          { text: "Сметана", value: "2" },
-          { text: "Сир", value: "3" },
-          { text: "Сметана", value: "4" },
-          { text: "Сир", value: "5" },
-          { text: "Сметана", value: "6" },
-        ]}
+        limit={5}
+        defaultItems={items.slice(0, 5)}
+        items={items}
+        // loading={loading}
       />
     </div>
   );
