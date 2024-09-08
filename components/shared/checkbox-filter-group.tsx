@@ -13,7 +13,7 @@ interface Props {
   title: string;
   name?: string;
   items: Item[];
-  defaultItems: Item[];
+  defaultItems?: Item[];
   limit?: number;
   searchInputPlaceholder?: string;
   // loading: boolean;
@@ -46,7 +46,7 @@ export const CheckboxFilterGroup: React.FC<Props> = ({
     ? items.filter((item) =>
         item.text.toLowerCase().includes(searchValue.toLowerCase())
       )
-    : defaultItems.slice(0, limit);
+    : (defaultItems || items).slice(0, limit);
 
   if (list.length === 0) {
     return (
