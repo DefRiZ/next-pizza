@@ -12,6 +12,8 @@ interface Props {
 export const Filter: React.FC<Props> = ({ className }) => {
   const {
     ingridients,
+    toggleCheckboxById,
+    selectedIds,
     // loading
   } = useFilterIngridients();
 
@@ -26,8 +28,8 @@ export const Filter: React.FC<Props> = ({ className }) => {
       <Title text="Фільтрація" size="sm" className="mb-5 font-bold" />
       {/* Checkbox */}
       <div className="flex flex-col gap-4">
-        <FilterCheckbox text="Можно збирати" value="1" />
-        <FilterCheckbox text="Новинки" value="2" />
+        <FilterCheckbox name="category" text="Можно збирати" value="1" />
+        <FilterCheckbox name="category" text="Новинки" value="2" />
       </div>
 
       {/* Price */}
@@ -52,8 +54,11 @@ export const Filter: React.FC<Props> = ({ className }) => {
         title="Інгредієнти"
         className="mt-5"
         limit={5}
+        name="ingridients"
         defaultItems={items.slice(0, 5)}
         items={items}
+        onClickCheckbox={toggleCheckboxById}
+        selectedIds={selectedIds}
         // loading={loading}
       />
     </div>
