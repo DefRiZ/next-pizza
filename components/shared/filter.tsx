@@ -58,8 +58,8 @@ export const Filter: React.FC<Props> = ({ className }) => {
       {/* Checkbox */}
       <div className="flex flex-col gap-4">
         <CheckboxFilterGroup
-          title="Розміри"
-          name="sizes"
+          title="Типи тіста"
+          name="types"
           items={[
             { text: "Тонкое", value: "1" },
             { text: "Традиционное", value: "2" },
