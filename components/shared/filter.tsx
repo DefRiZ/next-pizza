@@ -9,6 +9,12 @@ interface Props {
   className?: string;
 }
 
+//Пропси для рендж слайдеру
+interface PriceRangeProps {
+  priceFrom: number;
+  priceTo: number;
+}
+
 export const Filter: React.FC<Props> = ({ className }) => {
   const {
     ingridients,
@@ -16,6 +22,23 @@ export const Filter: React.FC<Props> = ({ className }) => {
     selectedIds,
     // loading
   } = useFilterIngridients();
+
+  // Стейт для рендж слайдеру
+  const [priceRange, setPriceRange] = React.useState<PriceRangeProps>({
+    priceFrom: 0,
+    priceTo: 1000,
+  });
+
+  /**
+   * Оновлює стейт рендж слайдеру
+   *
+   * @param {keyof PriceRangeProps} name - Ім'я поле стейту, яке потрібно оновити
+   * @param {number} value - Нове значення для поля
+   */
+  const updatePrice = (name: keyof PriceRangeProps, value: number) => {
+    // Створити новий об'єкт, щоб оновити стейт
+    setPriceRange({ ...priceRange, [name]: value });
+  };
 
   // Айтеми для чекбоксу
   const items = ingridients.map((ingridient) => ({
@@ -40,12 +63,28 @@ export const Filter: React.FC<Props> = ({ className }) => {
             type="number"
             placeholder="0"
             min={0}
-            max={3000}
-            defaultValue={0}
+            max={1000}
+            value={String(priceRange.priceFrom)}
+            onChange={(e) => updatePrice("priceFrom", Number(e.target.value))}
           />
-          <Input type="number" placeholder="3000" min={100} max={3000} />
+          <Input
+            type="number"
+            placeholder="1000"
+            min={0}
+            max={1000}
+            value={String(priceRange.priceTo)}
+            onChange={(e) => updatePrice("priceTo", Number(e.target.value))}
+          />
         </div>
-        <RangeSlider min={0} max={3000} step={10} value={[0, 3000]} />
+        <RangeSlider
+          min={0}
+          max={1000}
+          step={10}
+          value={[priceRange.priceFrom, priceRange.priceTo]}
+          onValueChange={([priceFrom, priceTo]) =>
+            setPriceRange({ priceFrom, priceTo })
+          }
+        />
       </div>
 
       {/* Ingredients */}
