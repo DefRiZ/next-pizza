@@ -64,13 +64,13 @@ export const ChoosePizzaForm: React.FC<Props> = ({
   });
 
   React.useEffect(() => {
-    const isDisabledSize = availablePizzaSizes.find(
+    const isAvailableSize = availablePizzaSizes.find(
       (item) => Number(item.value) === size && !item.disabled
     );
 
     const availableSize = availablePizzaSizes.find((item) => !item.disabled);
 
-    if (!isDisabledSize && availableSize) {
+    if (!isAvailableSize && availableSize) {
       setSize(Number(availableSize.value) as PizzaSize);
     }
   }, [type]);
