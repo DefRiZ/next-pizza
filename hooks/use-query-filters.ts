@@ -13,7 +13,11 @@ export const useQueryFilters = (filters: Filters) => {
       selectedSizes: Array.from(filters.selectedSizes),
       selectedTypes: Array.from(filters.selectedTypes),
     };
-    const query = qs.stringify(params, { arrayFormat: "comma" });
-    router.push(`?${query}`, { scroll: false });
+    const query = qs.stringify(params, {
+      arrayFormat: "comma",
+    });
+    router.push(`?${query}`, {
+      scroll: false,
+    });
   }, [filters, router]);
 };

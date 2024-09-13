@@ -65,6 +65,7 @@ model ProductItem {
 
   product Product @relation(fields: [productId], references: [id])
   productId Int
+
 }
 
 model Ingridient {
