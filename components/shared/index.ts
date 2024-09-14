@@ -1,3 +1,4 @@
+export * from "./modals";
 export { Container } from "./container";
 export { Header } from "./header";
 export { Title } from "./title";
@@ -9,3 +10,8 @@ export { FilterCheckbox } from "./filter-checkbox";
 export { RangeSlider } from "./range-slider";
 export { CheckboxFilterGroup } from "./checkbox-filter-group";
 export { SearchInput } from "./search-input";
+export { PizzaImage } from "./pizza-image";
+export { GroupVariants } from "./group-variants";
+export { ChooseProductForm } from "./choose-product-form";
+export { ChoosePizzaForm } from "./choose-pizza-form";
+export { IngridientItem } from "./ingridient-item";
