@@ -15,3 +15,4 @@ export { GroupVariants } from "./group-variants";
 export { ChooseProductForm } from "./choose-product-form";
 export { ChoosePizzaForm } from "./choose-pizza-form";
 export { IngridientItem } from "./ingridient-item";
+export { ProductForm } from "./product-form";
