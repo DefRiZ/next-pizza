@@ -14,29 +14,33 @@ import {
 import { Ingridient, ProductItem } from "@prisma/client";
 import { usePizzaOptions } from "@/hooks";
 import { getPizzaDetails } from "@/lib/get-pizza-details";
+import { ingredients } from "@/prisma/constants";
 
 interface Props {
+  loading?: boolean;
   imageUrl: string;
   name: string;
   ingredients: Ingridient[];
   items: ProductItem[];
-  onClickAddCart?: VoidFunction;
+  onClickSubmit: (itemId: number, ingredients: number[]) => void;
   className?: string;
 }
 
 export const ChoosePizzaForm: React.FC<Props> = ({
   className,
+  loading,
   imageUrl,
   name,
   ingredients,
   items,
-  onClickAddCart,
+  onClickSubmit,
 }) => {
   const {
     size,
     type,
     selectedIngr,
     availablePizzaSizes,
+    currentItemId,
     setSize,
     setType,
     addIngridient,
@@ -50,12 +54,10 @@ export const ChoosePizzaForm: React.FC<Props> = ({
     selectedIngr
   );
 
-  const onClickConsole = () => {
-    console.log({
-      size,
-      type,
-      selectedIngr,
-    });
+  const handleClickAdd = () => {
+    if (currentItemId) {
+      onClickSubmit(currentItemId, Array.from(selectedIngr));
+    }
   };
 
   return (
@@ -95,7 +97,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
         </div>
 
         <Button
-          onClick={onClickConsole}
+          onClick={handleClickAdd}
           className="h-[55px] px-10  text-base rounded-[18px] w-full mt-10"
         >
           Додати у кошик за {totalPrice} ₴
