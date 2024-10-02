@@ -63,14 +63,17 @@ export const useFilters = (): ReturnProps => {
     new Set<string>(searchParams.get("ingridients")?.split(","))
   );
 
-  return {
-    selectedTypes,
-    selectedSizes,
-    priceRange,
-    selectedIngridients,
-    setPriceRange: updatePrice,
-    toggleTypes,
-    toggleSize,
-    toggleIngridients,
-  };
+  return React.useMemo(
+    () => ({
+      priceRange,
+      selectedTypes,
+      selectedSizes,
+      selectedIngridients,
+      setPriceRange: updatePrice,
+      toggleIngridients,
+      toggleTypes,
+      toggleSize,
+    }),
+    [selectedSizes, selectedTypes, selectedIngridients, priceRange]
+  );
 };

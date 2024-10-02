@@ -3,12 +3,14 @@ import React from "react";
 import { Title } from "./title";
 import { Button } from "../ui";
 import { Plus } from "lucide-react";
+import { Ingridient } from "@prisma/client";
 
 interface Props {
   className?: string;
   id: number;
   name: string;
   price: number;
+  ingridients: Ingridient[];
   imageUrl: string;
 }
 
@@ -18,6 +20,7 @@ export const ProductCard: React.FC<Props> = ({
   id,
   price,
   name,
+  ingridients,
 }) => {
   return (
     <div className={className}>
@@ -28,7 +31,9 @@ export const ProductCard: React.FC<Props> = ({
 
         <Title text={name} size="sm" className="mb-1 mt-3 font-bold" />
 
-        <p className="text-sm text-gray-400">Інгредієнти піцци</p>
+        <p className="text-sm text-gray-400">
+          {ingridients.map((ingridient) => ingridient.name).join(", ")}
+        </p>
 
         <div className="flex justify-between mt-4">
           <span className="text-[20px]">

@@ -93,14 +93,13 @@ export const Filter: React.FC<Props> = ({ className }) => {
           onValueChange={updatedPrices}
         />
       </div>
-
       {/* Ingredients */}
       <CheckboxFilterGroup
         title="Інгредієнти"
         className="mt-5"
-        limit={5}
+        limit={6}
         name="ingridients"
-        defaultItems={items.slice(0, 5)}
+        defaultItems={items.slice(0, 6)}
         items={items}
         onClickCheckbox={filters.toggleIngridients}
         selectedIds={filters.selectedIngridients}
