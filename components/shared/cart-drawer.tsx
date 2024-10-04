@@ -20,28 +20,11 @@ import { useCartStore } from "@/store/cart";
 import { PizzaSize, PizzaType } from "@/constants/pizza";
 import { Title } from ".";
 import { cn } from "@/lib/utils";
+import { useCart } from "@/hooks";
 
-interface Props {
-  className?: string;
-}
-
-export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
-  className,
-  children,
-}) => {
-  const [
-    totalAmount,
-    items,
-    fetchCartItems,
-    updateItemQuantity,
-    removeCartItem,
-  ] = useCartStore((state) => [
-    state.totalAmount,
-    state.items,
-    state.fetchCartItems,
-    state.updateItemQuantity,
-    state.removeCartItem,
-  ]);
+export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
+  const [redirecting, setRedirecting] = React.useState(false);
+  const { totalAmount, items, updateItemQuantity, removeCartItem } = useCart();
 
   const onClickCountButton = (
     id: number,
@@ -52,9 +35,6 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
     updateItemQuantity(id, newQuantity);
   };
 
-  React.useEffect(() => {
-    fetchCartItems();
-  }, []);
   return (
     <Sheet>
       <SheetTrigger asChild>{children}</SheetTrigger>
@@ -145,7 +125,12 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
                   </div>
 
                   <Link href="/checkout">
-                    <Button type="submit" className="w-full h-12 text-base">
+                    <Button
+                      onClick={() => setRedirecting(true)}
+                      loading={redirecting}
+                      type="submit"
+                      className="w-full h-12 text-base"
+                    >
                       Оформить заказ
                       <ArrowRight className="w-5 ml-2" />
                     </Button>
